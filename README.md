@@ -21,7 +21,7 @@ to run the services locally
 * run containerized-discovery
 * change in the desired service in the application.yaml file defaultZone: http://discovery:8761/eureka/ by defaultZone:http://localhost:8761/eureka/
 
-If yo run locally change the port to 2222
+If you run locally change the port to 2222
 
 Running by **Build & Run** to se this swagger urls
 
