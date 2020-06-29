@@ -3,10 +3,9 @@ package com.tanerdiler.microservice.account.resource;
 import com.tanerdiler.microservice.account.dto.OrderDTO;
 import com.tanerdiler.microservice.account.model.Account;
 import com.tanerdiler.microservice.account.model.Order;
-import com.tanerdiler.microservice.account.model.Product;
 import com.tanerdiler.microservice.account.repository.AccountServiceClient;
 import com.tanerdiler.microservice.account.repository.LogisticServiceClient;
-import com.tanerdiler.microservice.account.repository.ProductServiceClient;
+import com.tanerdiler.microservice.account.repository.BillsServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,14 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
-
 @RestController
 @RequestMapping("/api/v1/backoffice")
 public class BackofficeController
 {
 	@Autowired
-	private ProductServiceClient productService;
+	private BillsServiceClient productService;
 	@Autowired
 	private LogisticServiceClient orderService;
 	@Autowired

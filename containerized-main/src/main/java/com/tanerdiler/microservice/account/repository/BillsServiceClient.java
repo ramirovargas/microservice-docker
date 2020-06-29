@@ -14,7 +14,7 @@ import java.util.List;
 
 @Component
 @FeignClient("containerized-bills")
-public interface ProductServiceClient
+public interface BillsServiceClient
 {
 	@RequestMapping(method = RequestMethod.GET, value = "/api/v1/products/{productId}")
 	Product findById(@PathVariable("productId") Integer orderId);

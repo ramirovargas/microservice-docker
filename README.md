@@ -4,37 +4,27 @@ This project is created to get experience on **Microservices With Netflix OSS**.
 
 ## There are four microservices:
 
-- **Accounts** : This microservice is responsible for managing accounts. An account could be buyer, seller or an backoffice account but there is only buyer account.
-- **Products** : This microservice is responsible for managing products.
-- **Orders** : This microservice is responsible for managing orders. It doesn't know anything about account and product except id.
-- **Backoffice**: This microservice is provides endpoints for backoffice ui.
+- **Accounts** : This microservice is responsible for managing accounts. users.
+- **Bills** : This microservice is responsible for managing products and the bills of them.
+- **Logistic** : This microservice is responsible for manage orders create and get all orders
+- **Backoffice**: This microservice is provides endpoints for backoffice ui is the principal endpoint.
 
 Backoffice microservice has an endpoint with path "/api/v1/backoffice/orders". This endpoint return a list of orders with name of product and account. It connects accounts, products and orders 
 microservices via **Feign**.
 
 ### EndPoints ###
 
-| Service       | EndPoint                      | Method | Description                                      |
-| ------------- | ----------------------------- | :-----:| ------------------------------------------------ |
-| Accounts      | /api/v1/accounts/{id}         | GET    | Return detail of specified account               |
-| Accounts      | /api/v1/accounts              | GET    | Return details of all acounts                    |
-| Products      | /api/v1/products/{id}         | GET    | Return detail of specified product               |
-| Products      | /api/v1/products              | GET    | Return details of all products                   |
-| Orders        | /api/v1/orders/{id}           | GET    | Return detail of order                           |
-| Orders        | /api/v1/orders                | GET    | Return details of orders                         |
-| Backoffice    | /api/v1/backoffice/orders     | GET    | Return orders with product name and account name |
+para ejecutar los servicios localmente
+* ejecutar mvn package en la raiz del proyecto
+* ejecutar containerized-discovery
+* cambiar en el servicio deseado en el archivo application.yaml defaultZone: http://discovery:8761/eureka/ por defaultZone: http://localhost:8761/eureka/
 
-### Gateways ###
-
-| Service       | EndPoint                                  |
-| ------------- | :---------------------------------------: |
-| Accounts      | **/account**/api/v1/accounts/{id}         | 
-| Accounts      | **/account**/api/v1/accounts              |
-| Products      | **/product**/api/v1/products/{id}         |
-| Products      | **/product**/api/v1/products              |
-| Orders        | **/order**/api/v1/orders/{id}             |
-| Orders        | **/order**/api/v1/orders                  |
-| Backoffice    | **/backoffice**/api/v1/backoffice/orders  |
+| Service       | Swwager                     | 
+| ------------- | ----------------------------- | 
+| Accounts      |   http://localhost:2222/swagger-ui.html#/account-resource      | 
+| Logistic      |   http://localhost:2222/swagger-ui.html#/order-resource           | 
+| Bills      |   http://localhost:2222/swagger-ui.html#/product-resource      |  
+| BackOffice     |         | 
 
 URI for gateway : *http://localhost:8762*
 
@@ -54,8 +44,8 @@ URI for gateway : *http://localhost:8762*
 In docker-compose.yml file:
 
 - Accounts Service : **__2222__** port is mapped to **__7500__** port of host
-- Products Service : **__2222__** port is mapped to **__7501__** port of host
-- Orders Service : **__2222__** port is mapped to **__7502__** port of host
+- Bills Service : **__2222__** port is mapped to **__7501__** port of host
+- Logistic Service : **__2222__** port is mapped to **__7502__** port of host
 - Backoffice Service : **__2222__** port is mapped to **__7503__** port of host
 - Eureka Discovery Service : **__8761__** port is mapped to **__8761__** port of host
 - Zuul Gateway Service : **__8762__** port is mapped to **__8762__** port of host 

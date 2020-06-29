@@ -59,8 +59,8 @@ services:
       - discovery:discovery
 
   products:
-    image: rvargass2/micro-products
-    container_name: micro-products
+    image: rvargass2/micro-bills
+    container_name: micro-bills
     build:
       context: ./containerized-bills
       dockerfile: Dockerfile
