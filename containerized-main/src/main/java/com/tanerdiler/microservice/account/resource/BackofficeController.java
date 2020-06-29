@@ -1,7 +1,9 @@
 package com.tanerdiler.microservice.account.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tanerdiler.microservice.account.dto.OrderDTO;
+import com.tanerdiler.microservice.account.dto.ProductDTO;
 import com.tanerdiler.microservice.account.dto.RequestDTO;
 import com.tanerdiler.microservice.account.model.Account;
 import com.tanerdiler.microservice.account.model.Order;
@@ -25,6 +27,8 @@ public class BackofficeController
 	private LogisticServiceClient logisticService;
 	@Autowired
 	private AccountServiceClient accountService;
+
+	private static ObjectMapper mapper = new ObjectMapper();
 
 	@GetMapping("/orders")
 	public ResponseEntity<List<OrderDTO>> getOrders()
@@ -59,7 +63,8 @@ public class BackofficeController
 		List<Product> products=requestDTO.getProducts();
 		Order order= new Order(requestDTO.getId(),products,requestDTO.getAccountId(),new Date(),requestDTO.getDirection());
 		logisticService.save(order);
-		String total= billService.getTotal(products);
+		ProductDTO productDTO= new ProductDTO(products);
+		String total= billService.getTotal(mapper.writeValueAsString(productDTO));
 		return ResponseEntity.ok("Total de su orden: " + total);
 	}
 

@@ -45,6 +45,40 @@ Running by **Build & Run** to se this swagger urls
 | Backoffice    | **/backoffice**/api/v1/backoffice/orders  |
 | Backoffice    | **/backoffice**/api/v1/backoffice/checkout **POST**  |
 
+JSON example for POST
+
+`{
+     "id": 10,
+     "accountId": 1,
+     "date": "2020-06-29T15:46:50.484+0000",
+     "direction": "Calle 123",
+     "products": [
+         {
+             "id": 1,
+             "name": "Camara",
+             "price": 100.0,
+             "quantity": 3
+         },
+         {
+             "id": 2,
+             "name": "Tv",
+             "price": 5.0,
+             "quantity": 2
+         },
+         {
+             "id": 3,
+             "name": "Computador",
+             "price": 200.0,
+             "quantity": 2
+         },
+         {
+             "id": 4,
+             "name": "Celular",
+             "price": 50.0,
+             "quantity": 1
+         }
+     ]
+ }`
 ## the first time to try /backoffice try many times if doesn't work there could be some timeout
 URI for gateway : *http://localhost:8762*
 

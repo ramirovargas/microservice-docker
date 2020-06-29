@@ -2,6 +2,7 @@ package com.tanerdiler.microservice.account.resource;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tanerdiler.microservice.account.dto.ProductDTO;
 import com.tanerdiler.microservice.account.model.Product;
 import com.tanerdiler.microservice.account.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -28,9 +30,10 @@ public class ProductResource
 		return ResponseEntity.ok(repository.findById(id).get());
 	}
 
-	@GetMapping("/getTotal/{products}")
-	public ResponseEntity<String> get(@PathVariable("products") List<Product> products) throws IOException {
-		int total = products.stream().mapToInt(i -> i.getPrice().intValue()).sum();
+	@GetMapping("/getTotal/{productsMap}")
+	public ResponseEntity<String> get(@PathVariable("productsMap") String productDTO) throws IOException {
+		ProductDTO productDTO1=objectMapper.readValue(productDTO.getBytes(), ProductDTO.class);
+		int total = productDTO1.getProducts().stream().mapToInt(i -> i.getPrice().intValue()).sum();
 		return ResponseEntity.ok(String.valueOf(total));
 	}
 
