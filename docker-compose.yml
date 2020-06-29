@@ -1,0 +1,101 @@
+version: '3'
+services:
+
+  discovery:
+    image: rvargass2/micro-discovery
+    container_name: micro-discovery
+    build:
+      context: ./containerized-discovery
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+#   cassandra-node-1:
+#     hostname: cassandra-1
+#     image: cassandra:latest
+#     command: /bin/bash -c "sleep 1 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
+#     expose:
+#       - 7000
+#       - 7001
+#       - 7199
+#       - 9042
+#       - 9160
+#  cassandra-node-2:
+#    hostname: cassandra-2
+#    image: cassandra:latest
+#    command: /bin/bash -c "sleep 30 && echo ' -- Pausing to let system catch up ... -->' && /docker-entrypoint.sh cassandra -f"
+#    links:
+#      - cassandra-node-1:cassandra
+#    expose:
+#      - 7000
+#      - 7001
+#      - 7199
+#      - 9042
+#      - 9160
+  gateway:
+    image: rvargass2/micro-gateway
+    container_name: micro-gateway
+    build:
+      context: ./containerized-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8762:8762"
+    depends_on:
+      - discovery
+    links:
+      - discovery:discovery
+  accounts:
+    image: rvargass2/micro-accounts
+    container_name: micro-accounts
+    build:
+      context: ./containerized-accounts
+      dockerfile: Dockerfile
+    ports:
+      - "7500:2222"
+    depends_on:
+      - discovery
+#      - cassandra-node-1
+    links:
+      - discovery:discovery
+
+  products:
+    image: rvargass2/micro-products
+    container_name: micro-products
+    build:
+      context: ./containerized-bills
+      dockerfile: Dockerfile
+    ports:
+      - "7501:2222"
+    depends_on:
+      - accounts
+    links:
+      - discovery:discovery
+
+  orders:
+    image: rvargass2/micro-logistic
+    container_name: micro-logistic
+    build:
+      context: ./containerized-logistic
+      dockerfile: Dockerfile
+    ports:
+      - "7502:2222"
+    depends_on:
+      - products
+    links:
+      - discovery:discovery
+
+  main:
+    image: rvargass2/micro-main
+    container_name: micro-main
+    build:
+      context: ./containerized-main
+      dockerfile: Dockerfile
+    ports:
+      - "7503:2222"
+    depends_on:
+      - orders
+    links:
+      - discovery:discovery
+      - accounts:accounts
+      - products:products
+      - orders:orders
