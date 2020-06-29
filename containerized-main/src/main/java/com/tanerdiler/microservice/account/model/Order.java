@@ -6,7 +6,7 @@ import java.util.List;
 public class Order
 {
 	private Integer id;
-	private List<Integer> productId;
+	private List<Product> products;
 	private Integer accountId;
 	private Date date;
 	private String direction;
@@ -15,18 +15,18 @@ public class Order
 	{
 	}
 
-	public Order(List<Integer> productId, Integer accountId, Date date, String direction)
+	public Order(List<Product> products, Integer accountId, Date date, String direction)
 	{
-		this.productId = productId;
+		this.products = products;
 		this.accountId = accountId;
 		this.date = date;
 		this.direction = direction;
 	}
 
-	public Order(Integer id, List<Integer> productId, Integer accountId, Date date, String direction)
+	public Order(Integer id, List<Product> products, Integer accountId, Date date, String direction)
 	{
 		this.id = id;
-		this.productId = productId;
+		this.products = products;
 		this.accountId = accountId;
 		this.date = date;
 		this.direction = direction;
@@ -42,14 +42,14 @@ public class Order
 		this.id = id;
 	}
 
-	public List<Integer> getProductId()
+	public List<Product> getProducts()
 	{
-		return productId;
+		return products;
 	}
 
-	public void setProductId(List<Integer> productId)
+	public void setProducts(List<Product> products)
 	{
-		this.productId = productId;
+		this.products = products;
 	}
 
 	public Integer getAccountId()

@@ -11,22 +11,42 @@ This project is created to get experience on **Microservices With Netflix OSS**.
 
 Backoffice microservice has an endpoint with path "/api/v1/backoffice/orders". This endpoint return a list of orders with name of product and account. It connects accounts, products and orders 
 microservices via **Feign**.
+And the "/api/v1/backoffice/checkout". endpoint as the requirement ask. connect microservices via **feign** 
 
 ### EndPoints ###
 
-para ejecutar los servicios localmente
-* ejecutar mvn package en la raiz del proyecto
-* ejecutar containerized-discovery
-* cambiar en el servicio deseado en el archivo application.yaml defaultZone: http://discovery:8761/eureka/ por defaultZone: http://localhost:8761/eureka/
+
+to run the services locally
+* run mvn package at the root of the project
+* run containerized-discovery
+* change in the desired service in the application.yaml file defaultZone: http://discovery:8761/eureka/ by defaultZone:http://localhost:8761/eureka/
+
+If yo run locally change the port to 2222
+
+Running by **Build & Run** to se this swagger urls
 
 | Service       | Swwager                     | 
 | ------------- | ----------------------------- | 
-| Accounts      |   http://localhost:2222/swagger-ui.html#/account-resource      | 
-| Logistic      |   http://localhost:2222/swagger-ui.html#/order-resource           | 
-| Bills      |   http://localhost:2222/swagger-ui.html#/product-resource      |  
+| Accounts      |   http://localhost:7500/swagger-ui.html#/account-resource      | 
+| Logistic      |   http://localhost:7502/swagger-ui.html#/order-resource           | 
+| Bills      |   http://localhost:7501/swagger-ui.html#/product-resource      |  
 | BackOffice     |         | 
 
+
+### Gateways ###
+
+| Service       | EndPoint                                  |
+| ------------- | :---------------------------------------: |
+| Accounts      | **/account**/api/v1/accounts/{id}         | 
+| Accounts      | **/account**/api/v1/accounts              |
+| Bills      | **/product**/api/v1/products/{id}         |
+| Bills      | **/product**/api/v1/products              |
+| Logistic        | **/order**/api/v1/orders/{id}             |
+| Logistic        | **/order**/api/v1/orders                  |
+| Backoffice    | **/backoffice**/api/v1/backoffice/orders  |
+
 URI for gateway : *http://localhost:8762*
+
 
 ## Used Netflix OSS:
 
@@ -48,4 +68,15 @@ In docker-compose.yml file:
 - Logistic Service : **__2222__** port is mapped to **__7502__** port of host
 - Backoffice Service : **__2222__** port is mapped to **__7503__** port of host
 - Eureka Discovery Service : **__8761__** port is mapped to **__8761__** port of host
-- Zuul Gateway Service : **__8762__** port is mapped to **__8762__** port of host 
+- Zuul Gateway Service : **__8762__** port is mapped to **__8762__** port of host
+
+## Aspects to improve
+* There is shared information that is repeated as the products, when you have a database it is solved
+* Given the time worked on the entities of the services, the ideal would be to create DTO for each manipulation.
+* Swagger documentation to the main server the service that maps to swwager doesnt obtain the information of the main API
+
+
+## Aspects that were taken into account
+* Have the discovery service for each service
+* have the main service main and connected with **feign** to get the other services
+* Logistic services were seen as order handlers, bill services were seen as product handlers, so endpoints with their names

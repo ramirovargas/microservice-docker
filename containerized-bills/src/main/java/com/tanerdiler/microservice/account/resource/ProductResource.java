@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -20,6 +21,13 @@ public class ProductResource
 	public ResponseEntity<Product> get(@PathVariable("id") Integer id)
 	{
 		return ResponseEntity.ok(repository.findById(id).get());
+	}
+
+	@GetMapping("/getTotal/{products}")
+	public ResponseEntity<String> get(@PathVariable("products") List<Product> products)
+	{
+		int total = products.stream().mapToInt(i -> i.getPrice().intValue()).sum();
+		return ResponseEntity.ok(String.valueOf(total));
 	}
 
 	@GetMapping()
