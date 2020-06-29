@@ -2,8 +2,6 @@ package com.tanerdiler.microservice.account.repository;
 
 import com.tanerdiler.microservice.account.model.Order;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;

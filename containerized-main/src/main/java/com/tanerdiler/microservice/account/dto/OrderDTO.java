@@ -1,5 +1,7 @@
 package com.tanerdiler.microservice.account.dto;
 
+import com.tanerdiler.microservice.account.model.Product;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,16 +11,16 @@ public class OrderDTO
 	private Date date;
 	private String direction;
 	private final String accountName;
-	private final List<String> productName;
+	private final List<Product> products;
 
-	public OrderDTO(Integer id, Date date, String direction, String accountName, List<String> productName)
+	public OrderDTO(Integer id, Date date, String direction, String accountName, List<Product> products)
 	{
 
 		this.id = id;
 		this.date = date;
 		this.direction = direction;
 		this.accountName = accountName;
-		this.productName = productName;
+		this.products = products;
 	}
 
 	public Integer getId()
@@ -41,8 +43,8 @@ public class OrderDTO
 		return accountName;
 	}
 
-	public List<String> getProductName()
+	public List<Product> getProducts()
 	{
-		return productName;
+		return products;
 	}
 }

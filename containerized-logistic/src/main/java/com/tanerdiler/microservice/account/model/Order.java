@@ -15,18 +15,18 @@ public class Order
 	{
 	}
 
-	public Order(List<Product> productId, Integer accountId, Date date, String direction)
+	public Order(List<Product> products, Integer accountId, Date date, String direction)
 	{
-		this.products = productId;
+		this.products = products;
 		this.accountId = accountId;
 		this.date = date;
 		this.direction = direction;
 	}
 
-	public Order(Integer id, List<Product> productId, Integer accountId, Date date, String direction)
+	public Order(Integer id, List<Product> products, Integer accountId, Date date, String direction)
 	{
 		this.id = id;
-		this.products = productId;
+		this.products = products;
 		this.accountId = accountId;
 		this.date = date;
 		this.direction = direction;
@@ -42,14 +42,14 @@ public class Order
 		this.id = id;
 	}
 
-	public List<Product> getProductId()
+	public List<Product> getProducts()
 	{
 		return products;
 	}
 
-	public void setProductId(List<Product> productId)
+	public void setProducts(List<Product> products)
 	{
-		this.products = productId;
+		this.products = products;
 	}
 
 	public Integer getAccountId()

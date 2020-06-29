@@ -23,7 +23,7 @@ public interface BillsServiceClient
 	List<Product> findAll();
 
 	@RequestMapping(method = RequestMethod.GET, value = "/api/v1/products/getTotal/{products}")
-	String getTotal(@PathVariable("products") List<Product> products);
+	String getTotal(@PathVariable("products") String products);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/api/v1/products/save")
 	void save(@RequestBody Order order);

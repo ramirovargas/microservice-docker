@@ -1,5 +1,7 @@
 package com.tanerdiler.microservice.account.resource;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tanerdiler.microservice.account.model.Product;
 import com.tanerdiler.microservice.account.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,6 +20,8 @@ public class ProductResource
 	@Autowired
 	private ProductRepository repository;
 
+	private ObjectMapper objectMapper = new ObjectMapper();
+
 	@GetMapping("/{id}")
 	public ResponseEntity<Product> get(@PathVariable("id") Integer id)
 	{
@@ -24,9 +29,9 @@ public class ProductResource
 	}
 
 	@GetMapping("/getTotal/{products}")
-	public ResponseEntity<String> get(@PathVariable("products") List<Product> products)
-	{
-		int total = products.stream().mapToInt(i -> i.getPrice().intValue()).sum();
+	public ResponseEntity<String> get(@PathVariable("products") String products) throws IOException {
+		List<Product> myObjects = objectMapper.readValue(products, new TypeReference<List<Product>>(){});
+		int total = myObjects.stream().mapToInt(i -> i.getPrice().intValue()).sum();
 		return ResponseEntity.ok(String.valueOf(total));
 	}
 

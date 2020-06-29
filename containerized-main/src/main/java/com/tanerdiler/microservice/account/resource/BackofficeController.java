@@ -1,5 +1,7 @@
 package com.tanerdiler.microservice.account.resource;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tanerdiler.microservice.account.dto.OrderDTO;
 import com.tanerdiler.microservice.account.model.Account;
 import com.tanerdiler.microservice.account.model.Order;
@@ -8,7 +10,6 @@ import com.tanerdiler.microservice.account.repository.AccountServiceClient;
 import com.tanerdiler.microservice.account.repository.LogisticServiceClient;
 import com.tanerdiler.microservice.account.repository.BillsServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,8 @@ public class BackofficeController
 	private LogisticServiceClient logisticService;
 	@Autowired
 	private AccountServiceClient accountService;
+
+	private ObjectMapper objectMapper = new ObjectMapper();
 
 	@GetMapping("/orders")
 	public ResponseEntity<List<OrderDTO>> getOrders()
@@ -48,7 +51,7 @@ public class BackofficeController
 					o.getDate(),
 					o.getDirection(),
 					accounts.get(o.getAccountId()).getFullname(),
-					getProducts(o.getId())
+					o.getProducts()
 			));
 		});
 
@@ -57,18 +60,15 @@ public class BackofficeController
 
 	}
 	@PostMapping("/checkout")
-	public ResponseEntity<String> save(@RequestBody Order order) {
+	public ResponseEntity<String> save(@RequestBody Order order) throws JsonProcessingException {
 		logisticService.save(order);
 		List<Product> products=order.getProducts();
-		String total= billService.getTotal(products);
+		String result=objectMapper.writeValueAsString(products);
+		String total= billService.getTotal(result);
 		return ResponseEntity.ok("Total de su orden: " + total);
 	}
 
-
-	public List<String> getProducts(Integer id){
-		List<String> productsList = new ArrayList<>();
-		logisticService.findById(id).getProducts().stream()
-				.forEach(p->productsList.add(billService.findById(p.getId()).getName()));
-		return productsList;
-	}
 }
+
+
+

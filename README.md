@@ -45,6 +45,7 @@ Running by **Build & Run** to se this swagger urls
 | Backoffice    | **/backoffice**/api/v1/backoffice/orders  |
 | Backoffice    | **/backoffice**/api/v1/backoffice/checkout **POST**  |
 
+## the first time to try /backoffice try many times if doesn't work there could be some timeout
 URI for gateway : *http://localhost:8762*
 
 
@@ -74,7 +75,7 @@ In docker-compose.yml file:
 * There is shared information that is repeated as the products, when you have a database it is solved
 * Given the time worked on the entities of the services, the ideal would be to create DTO for each manipulation.
 * Swagger documentation to the main server the service that maps to swwager doesnt obtain the information of the main API
-
+* Zuul sometimes is late in starting and we need to make several request to work properly
 
 ## Aspects that were taken into account
 * Have the discovery service for each service
