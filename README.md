@@ -9,9 +9,9 @@ This project is created to get experience on **Microservices With Netflix OSS**.
 - **Logistic** : This microservice is responsible for manage orders create and get all orders
 - **Backoffice**: This microservice is provides endpoints for backoffice ui is the principal endpoint.
 
-Backoffice microservice has an endpoint with path "/api/v1/backoffice/orders". This endpoint return a list of orders with name of product and account. It connects accounts, products and orders 
+Backoffice microservice has an endpoint with path ``` /api/v1/backoffice/orders ``` . This endpoint return a list of orders with name of product and account. It connects accounts, products and orders 
 microservices via **Feign**.
-And the "/api/v1/backoffice/checkout". endpoint as the requirement ask. connect microservices via **feign** 
+And the ``` /api/v1/backoffice/checkout ```. endpoint as the requirement ask. connect microservices via **feign** 
 
 ### EndPoints ###
 
@@ -29,8 +29,7 @@ Running by **Build & Run** to se this swagger urls
 | ------------- | ----------------------------- | 
 | Accounts      |   http://localhost:7500/swagger-ui.html#/account-resource      | 
 | Logistic      |   http://localhost:7502/swagger-ui.html#/order-resource           | 
-| Bills      |   http://localhost:7501/swagger-ui.html#/product-resource      |  
-| BackOffice     |         | 
+| Bills      |   http://localhost:7501/swagger-ui.html#/product-resource      |   
 
 
 ### Gateways ###
@@ -44,6 +43,7 @@ Running by **Build & Run** to se this swagger urls
 | Logistic        | **/order**/api/v1/orders/{id}             |
 | Logistic        | **/order**/api/v1/orders                  |
 | Backoffice    | **/backoffice**/api/v1/backoffice/orders  |
+| Backoffice    | **/backoffice**/api/v1/backoffice/checkout **POST**  |
 
 URI for gateway : *http://localhost:8762*
 
