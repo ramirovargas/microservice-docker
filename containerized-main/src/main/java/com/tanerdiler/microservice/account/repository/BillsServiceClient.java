@@ -22,8 +22,8 @@ public interface BillsServiceClient
 	@RequestMapping(method = RequestMethod.GET, value = "/api/v1/products")
 	List<Product> findAll();
 
-	@RequestMapping(method = RequestMethod.GET, value = "/api/v1/products/getTotal/{products}")
-	String getTotal(@PathVariable("products") String products);
+	@RequestMapping(method = RequestMethod.GET, value = "/api/v1/products/getTotal/{productsMap}")
+	String getTotal(@PathVariable("productsMap") List<Product> products);
 
 	@RequestMapping(method = RequestMethod.POST, value = "/api/v1/products/save")
 	void save(@RequestBody Order order);

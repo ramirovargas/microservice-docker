@@ -29,9 +29,8 @@ public class ProductResource
 	}
 
 	@GetMapping("/getTotal/{products}")
-	public ResponseEntity<String> get(@PathVariable("products") String products) throws IOException {
-		List<Product> myObjects = objectMapper.readValue(products, new TypeReference<List<Product>>(){});
-		int total = myObjects.stream().mapToInt(i -> i.getPrice().intValue()).sum();
+	public ResponseEntity<String> get(@PathVariable("products") List<Product> products) throws IOException {
+		int total = products.stream().mapToInt(i -> i.getPrice().intValue()).sum();
 		return ResponseEntity.ok(String.valueOf(total));
 	}
 

@@ -1,8 +1,8 @@
 package com.tanerdiler.microservice.account.resource;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tanerdiler.microservice.account.dto.OrderDTO;
+import com.tanerdiler.microservice.account.dto.RequestDTO;
 import com.tanerdiler.microservice.account.model.Account;
 import com.tanerdiler.microservice.account.model.Order;
 import com.tanerdiler.microservice.account.model.Product;
@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/backoffice")
@@ -28,8 +25,6 @@ public class BackofficeController
 	private LogisticServiceClient logisticService;
 	@Autowired
 	private AccountServiceClient accountService;
-
-	private ObjectMapper objectMapper = new ObjectMapper();
 
 	@GetMapping("/orders")
 	public ResponseEntity<List<OrderDTO>> getOrders()
@@ -60,11 +55,11 @@ public class BackofficeController
 
 	}
 	@PostMapping("/checkout")
-	public ResponseEntity<String> save(@RequestBody Order order) throws JsonProcessingException {
+	public ResponseEntity<String> save(@RequestBody RequestDTO requestDTO) throws JsonProcessingException {
+		List<Product> products=requestDTO.getProducts();
+		Order order= new Order(requestDTO.getId(),products,requestDTO.getAccountId(),new Date(),requestDTO.getDirection());
 		logisticService.save(order);
-		List<Product> products=order.getProducts();
-		String result=objectMapper.writeValueAsString(products);
-		String total= billService.getTotal(result);
+		String total= billService.getTotal(products);
 		return ResponseEntity.ok("Total de su orden: " + total);
 	}
 
