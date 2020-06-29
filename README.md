@@ -47,7 +47,8 @@ Running by **Build & Run** to se this swagger urls
 
 JSON example for POST
 
-`{
+```
+{
      "id": 10,
      "accountId": 1,
      "date": "2020-06-29T15:46:50.484+0000",
@@ -78,7 +79,8 @@ JSON example for POST
              "quantity": 1
          }
      ]
- }`
+ } 
+``` 
 ## the first time to try /backoffice try many times if doesn't work there could be some timeout
 URI for gateway : *http://localhost:8762*
 
