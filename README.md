@@ -109,7 +109,7 @@ In docker-compose.yml file:
 
 ## Aspects to improve
 * There is shared information that is repeated as the products, when you have a database it is solved
-* Given the time worked on the entities of the services, the ideal would be to create DTO for each manipulation.
+* Given the time worked on the entities of the services, the ideal would be to create DTO for each manipulation and services.
 * Swagger documentation to the main server the service that maps to swwager doesnt obtain the information of the main API
 * Zuul sometimes is late in starting and we need to make several request to work properly
 
