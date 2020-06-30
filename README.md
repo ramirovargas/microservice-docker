@@ -22,15 +22,6 @@ And the ``` /api/v1/backoffice/checkout ```. endpoint as the requirement ask. co
 
 ### EndPoints ###
 
-** Optional **
-to run the services locally without docker
-* run mvn clean package at the root of the project
-* change in the desired service in the application.yaml file defaultZone: http://discovery:8761/eureka/ by defaultZone:http://localhost:8761/eureka/
-* run containerized-discovery
-* Run the serivice 
-
-If you run locally without docker change the port to 2222
-
 Running by down here **Build & Run** to se this swagger urls
 
 | Service       | Swwager                     | 
@@ -117,4 +108,4 @@ In docker-compose.yml file:
 ## Aspects that were taken into account
 * Have the discovery service for each service
 * have the main service main and connected with **feign** to get the other services
-* Logistic services were seen as order handlers, bill services were seen as product handlers, so endpoints with their names
+* Logistic services were seen as order handlers, bill services were seen as product handlers, thats why el endpoints with their names
