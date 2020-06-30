@@ -13,17 +13,25 @@ Backoffice microservice has an endpoint with path ``` /api/v1/backoffice/orders 
 microservices via **Feign**.
 And the ``` /api/v1/backoffice/checkout ```. endpoint as the requirement ask. connect microservices via **feign** 
 
+## Build & Run docker compose
+
+- *>mvn clean package* : to build
+- *>docker-compose up* --build : build docker images and containers and run containers
+- *>docker-compose stop* : stop the dockerized services
+- Each maven module has a Dockerfile
+
 ### EndPoints ###
 
-
-to run the services locally
-* run mvn package at the root of the project
-* run containerized-discovery
+** Optional **
+to run the services locally without docker
+* run mvn clean package at the root of the project
 * change in the desired service in the application.yaml file defaultZone: http://discovery:8761/eureka/ by defaultZone:http://localhost:8761/eureka/
+* run containerized-discovery
+* Run the serivice 
 
-If you run locally change the port to 2222
+If you run locally without docker change the port to 2222
 
-Running by **Build & Run** to se this swagger urls
+Running by down here **Build & Run** to se this swagger urls
 
 | Service       | Swwager                     | 
 | ------------- | ----------------------------- | 
@@ -90,13 +98,6 @@ URI for gateway : *http://localhost:8762*
 - **Netflix Eureka** is used for discovery service.
 - **Netflix Ribbon** is used for client side load-balancing.
 - **Netflix Zuul** is used for gateway.
-
-## Build & Run
-
-- *>mvn clean package* : to build
-- *>docker-compose up* --build : build docker images and containers and run containers
-- *>docker-compose stop* : stop the dockerized services
-- Each maven module has a Dockerfile.
 
 In docker-compose.yml file:
 
