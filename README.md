@@ -108,4 +108,4 @@ In docker-compose.yml file:
 ## Aspects that were taken into account
 * Have the discovery service for each service
 * have the main service main and connected with **feign** to get the other services
-* Logistic services were seen as order handlers, bill services were seen as product handlers, thats why el endpoints with their names
+* Service are the way thar netflix oss is recommended
